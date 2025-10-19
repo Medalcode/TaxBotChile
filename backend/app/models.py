@@ -1,11 +1,14 @@
-from datetime import datetime
+from datetime import datetime, timezone
 import os
+from dotenv import load_dotenv
 from sqlalchemy import create_engine, Column, Integer, Float, String, DateTime, ForeignKey
 from sqlalchemy.orm import declarative_base, relationship
 
+load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".env"))
+
 DB_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "data")
 os.makedirs(DB_DIR, exist_ok=True)
-DATABASE_URL = f"sqlite:///{os.path.join(DB_DIR, 'taxbot.db')}"
+DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{os.path.join(DB_DIR, 'taxbot.db')}")
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 Base = declarative_base()
 
@@ -17,7 +20,7 @@ class Usuario(Base):
     nombre = Column(String, nullable=False)
     rut = Column(String, unique=True, nullable=True)
     hash_password = Column(String, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     ingresos = relationship("Ingreso", back_populates="usuario", cascade="all, delete-orphan")
 
 
@@ -29,7 +32,7 @@ class Ingreso(Base):
     fecha_emision = Column(DateTime, nullable=False)
     descripcion = Column(String, nullable=True)
     cliente = Column(String, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     usuario = relationship("Usuario", back_populates="ingresos")
 
 
