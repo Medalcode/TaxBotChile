@@ -6,8 +6,8 @@ Asistente tributario inteligente para freelancers chilenos. Calcula retención d
 
 - **Cálculo de retención** — 13,75% sobre boletas de honorarios (tasa vigente SII)
 - **Proyección Global Complementario** — Estimación anual del impuesto según tramos UTM
-- **Dashboard interactivo** — Gráficos de ingresos mensuales con Plotly
-- **Recomendaciones personalizadas** — Sugerencias de ahorro basadas en ingresos y proyección
+- **Dashboard interactivo** — 6 vistas con gráficos Plotly (ingresos mensuales, comparativas)
+- **Recomendaciones personalizadas** — Sugerencias de ahorro basadas en ingresos y proyección GC
 - **Autenticación** — Registro e inicio de sesión con JWT + bcrypt
 - **CRUD de ingresos** — Registrar, listar y eliminar ingresos
 
@@ -19,6 +19,7 @@ Asistente tributario inteligente para freelancers chilenos. Calcula retención d
 | Dashboard | Streamlit + Plotly + Pandas |
 | Auth | JWT (python-jose) + bcrypt (passlib) |
 | Tests | pytest + httpx (TestClient) |
+| Deploy | Docker + docker-compose |
 
 ## Estructura
 
@@ -26,7 +27,7 @@ Asistente tributario inteligente para freelancers chilenos. Calcula retención d
 TaxBotChile/
 ├── backend/
 │   ├── app/
-│   │   ├── main.py              # FastAPI entry point
+│   │   ├── main.py              # FastAPI entry point + CORS
 │   │   ├── models.py            # SQLAlchemy ORM (Usuario, Ingreso)
 │   │   ├── schemas.py           # Pydantic models
 │   │   ├── routers/
@@ -35,14 +36,18 @@ TaxBotChile/
 │   │   └── services/
 │   │       ├── auth.py          # JWT create/decode, password hash
 │   │       └── tax_calculator.py # Lógica tributaria chilena
+│   ├── Dockerfile
 │   └── requirements.txt
 ├── dashboard/
-│   ├── app.py                   # Streamlit multivista
+│   ├── app.py                   # Streamlit multivista (6 paneles)
+│   ├── Dockerfile
 │   └── requirements.txt
 ├── tests/
-│   ├── test_api.py              # 7 tests de integración
-│   └── test_tax_calculator.py   # 6 tests unitarios
-├── run.sh                       # Script lanzamiento backend + dashboard
+│   ├── test_api.py              # 7 tests de integración (API)
+│   └── test_tax_calculator.py   # 6 tests unitarios (core tributario)
+├── docker-compose.yml           # Orquestación backend + dashboard
+├── run.sh                       # Script lanzamiento local
+├── .env.example                 # Variables de entorno (SECRET_KEY, DB)
 ├── pyproject.toml               # ruff + mypy config
 ├── .gitignore
 └── README.md
@@ -50,8 +55,9 @@ TaxBotChile/
 
 ## Quick Start
 
+### Local
+
 ```bash
-# Clonar
 git clone https://github.com/Medalcode/TaxBotChile.git
 cd TaxBotChile
 
@@ -70,6 +76,13 @@ O con el script todo-en-uno:
 
 ```bash
 chmod +x run.sh && ./run.sh
+```
+
+### Docker
+
+```bash
+cp .env.example .env
+docker compose up --build
 ```
 
 ## API Endpoints
@@ -92,6 +105,15 @@ chmod +x run.sh && ./run.sh
 cd backend
 pytest ../tests/ -v
 ```
+
+13 tests (7 integración API + 6 unitarios). Todos pasan sin warnings.
+
+## Variables de Entorno
+
+| Variable | Default | Descripción |
+|----------|---------|-------------|
+| `SECRET_KEY` | `taxbot-secret-key-change-in-production` | Clave para firmar JWT |
+| `DATABASE_URL` | `sqlite:///data/taxbot.db` | URL de conexión a BD |
 
 ## Autor
 
