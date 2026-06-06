@@ -17,7 +17,7 @@ Asistente tributario inteligente para freelancers chilenos. Calcula retención d
 |------|-----------|
 | Backend | FastAPI + SQLAlchemy + SQLite |
 | Dashboard | Streamlit + Plotly + Pandas |
-| Auth | JWT (python-jose) + bcrypt (passlib) |
+| Auth | JWT (python-jose) + bcrypt nativo |
 | Tests | pytest + httpx (TestClient) |
 | Deploy | Docker + docker-compose |
 
@@ -39,7 +39,15 @@ TaxBotChile/
 │   ├── Dockerfile
 │   └── requirements.txt
 ├── dashboard/
-│   ├── app.py                   # Streamlit multivista (6 paneles)
+│   ├── app.py                   # Streamlit entry point y routing
+│   ├── utils.py                 # Utilidades API y sesión
+│   ├── pages/                   # Vistas multipágina
+│   │   ├── 1_Dashboard.py
+│   │   ├── 2_Registrar_Ingreso.py
+│   │   ├── 3_Mis_Ingresos.py
+│   │   ├── 4_Calcular_Boleta.py
+│   │   ├── 5_Proyeccion.py
+│   │   └── 6_Recomendaciones.py
 │   ├── Dockerfile
 │   └── requirements.txt
 ├── tests/
@@ -114,6 +122,7 @@ pytest ../tests/ -v
 |----------|---------|-------------|
 | `SECRET_KEY` | `taxbot-secret-key-change-in-production` | Clave para firmar JWT |
 | `DATABASE_URL` | `sqlite:///data/taxbot.db` | URL de conexión a BD |
+| `VALOR_UTM` | `66205` | Valor de la UTM para cálculos |
 
 ## Autor
 

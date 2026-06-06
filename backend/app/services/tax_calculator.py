@@ -1,4 +1,9 @@
-VALOR_UTM = 66205
+import os
+from dotenv import load_dotenv
+
+load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", ".env"))
+
+VALOR_UTM = float(os.getenv("VALOR_UTM", "66205"))
 RETENCION_BOLETA = 0.1375
 
 TRAMOS_GLOBAL_COMPLEMENTARIO = [

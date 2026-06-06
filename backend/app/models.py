@@ -36,4 +36,4 @@ class Ingreso(Base):
     usuario = relationship("Usuario", back_populates="ingresos")
 
 
-Base.metadata.create_all(bind=engine)
+
