@@ -1,5 +1,5 @@
-import streamlit as st
 import plotly.graph_objects as go
+import streamlit as st
 from utils import api_get, require_auth
 
 require_auth()

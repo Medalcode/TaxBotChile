@@ -1,5 +1,5 @@
 import streamlit as st
-from utils import init_session, api_post
+from utils import api_post, init_session
 
 st.set_page_config(page_title="TaxBot Chile", page_icon="🧾", layout="wide")
 init_session()
@@ -10,33 +10,31 @@ def login_page():
 
     tab1, tab2 = st.tabs(["Iniciar Sesión", "Registrarse"])
 
-    with tab1:
-        with st.form("login"):
-            email = st.text_input("Email")
-            password = st.text_input("Contraseña", type="password")
-            if st.form_submit_button("Entrar"):
-                r = api_post("/auth/login", json={"email": email, "password": password})
-                if r.status_code == 200:
-                    st.session_state.token = r.json()["access_token"]
-                    st.session_state.usuario = email
-                    st.rerun()
-                else:
-                    st.error("Credenciales inválidas")
+    with tab1, st.form("login"):
+        email = st.text_input("Email")
+        password = st.text_input("Contraseña", type="password")
+        if st.form_submit_button("Entrar"):
+            r = api_post("/auth/login", json={"email": email, "password": password})
+            if r.status_code == 200:
+                st.session_state.token = r.json()["access_token"]
+                st.session_state.usuario = email
+                st.rerun()
+            else:
+                st.error("Credenciales inválidas")
 
-    with tab2:
-        with st.form("registro"):
-            nombre = st.text_input("Nombre")
-            email_r = st.text_input("Email")
-            password_r = st.text_input("Contraseña", type="password")
-            rut = st.text_input("RUT (opcional)")
-            if st.form_submit_button("Registrarse"):
-                r = api_post("/auth/registro", json={
-                    "nombre": nombre, "email": email_r, "password": password_r, "rut": rut or None,
-                })
-                if r.status_code == 200:
-                    st.success("Registrado exitosamente. Inicia sesión.")
-                else:
-                    st.error(r.json().get("detail", "Error al registrar"))
+    with tab2, st.form("registro"):
+        nombre = st.text_input("Nombre")
+        email_r = st.text_input("Email")
+        password_r = st.text_input("Contraseña", type="password")
+        rut = st.text_input("RUT (opcional)")
+        if st.form_submit_button("Registrarse"):
+            r = api_post("/auth/registro", json={
+                "nombre": nombre, "email": email_r, "password": password_r, "rut": rut or None,
+            })
+            if r.status_code == 200:
+                st.success("Registrado exitosamente. Inicia sesión.")
+            else:
+                st.error(r.json().get("detail", "Error al registrar"))
 
 if not st.session_state.token:
     login_page()

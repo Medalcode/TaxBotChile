@@ -57,6 +57,8 @@ TaxBotChile/
 ├── run.sh                       # Script lanzamiento local
 ├── .env.example                 # Variables de entorno (SECRET_KEY, DB)
 ├── pyproject.toml               # ruff + mypy config
+├── graphify-out/                # Knowledge graph (53 nodos, 52 aristas)
+├── .agents/                     # skills.sh skills (tdd)
 ├── .gitignore
 └── README.md
 ```
@@ -115,6 +117,14 @@ pytest ../tests/ -v
 ```
 
 13 tests (7 integración API + 6 unitarios). Todos pasan sin warnings.
+
+## Knowledge Graph
+
+`graphify-out/graph.json` contiene 53 nodos y 52 aristas del AST del proyecto, permitiendo a agentes AI comprender la arquitectura sin escanear archivos.
+
+## Skills
+
+- **tdd** (skills.sh) — patrones de testing para mantener y expandir la cobertura
 
 ## Variables de Entorno
 

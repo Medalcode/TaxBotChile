@@ -1,20 +1,20 @@
-from pydantic import BaseModel, EmailStr, Field
 from datetime import datetime
-from typing import Optional
+
+from pydantic import BaseModel, Field
 
 
 class UsuarioCreate(BaseModel):
     email: str
     nombre: str
     password: str = Field(min_length=6)
-    rut: Optional[str] = None
+    rut: str | None = None
 
 
 class UsuarioResponse(BaseModel):
     id: int
     email: str
     nombre: str
-    rut: Optional[str] = None
+    rut: str | None = None
 
     model_config = {"from_attributes": True}
 
@@ -22,16 +22,16 @@ class UsuarioResponse(BaseModel):
 class IngresoCreate(BaseModel):
     monto_bruto: float = Field(gt=0)
     fecha_emision: str
-    descripcion: Optional[str] = None
-    cliente: Optional[str] = None
+    descripcion: str | None = None
+    cliente: str | None = None
 
 
 class IngresoResponse(BaseModel):
     id: int
     monto_bruto: float
     fecha_emision: datetime
-    descripcion: Optional[str] = None
-    cliente: Optional[str] = None
+    descripcion: str | None = None
+    cliente: str | None = None
 
     model_config = {"from_attributes": True}
 

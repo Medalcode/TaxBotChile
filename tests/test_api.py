@@ -1,12 +1,14 @@
-import sys
 import os
+import sys
 import uuid
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "backend"))
 
 import pytest
-from fastapi.testclient import TestClient
 from app.main import app
 from app.models import Base, engine
+from fastapi.testclient import TestClient
+
 
 @pytest.fixture(scope="session", autouse=True)
 def setup_database():

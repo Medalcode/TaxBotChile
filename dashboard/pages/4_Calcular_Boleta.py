@@ -13,4 +13,4 @@ if monto > 0:
         col1.metric("Monto Bruto", f"${d['monto_bruto']:,.0f}")
         col2.metric("Retención (13,75%)", f"${d['retencion']:,.0f}", delta_color="inverse")
         col3.metric("Líquido a Recibir", f"${d['liquido_a_recibir']:,.0f}")
-        st.info(f"Esta retención cubre tu cotización de salud y pensión. El monto líquido es lo que realmente recibirás.")
+        st.info("Esta retención cubre tu cotización de salud y pensión. El monto líquido es lo que realmente recibirás.")

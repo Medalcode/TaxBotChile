@@ -1,0 +1,637 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "name": "TaxBotChile",
+      "type": "module",
+      "file": null,
+      "doc": null
+    },
+    {
+      "id": 2,
+      "name": "backend/app/main",
+      "type": "module",
+      "file": "backend/app/main.py",
+      "doc": null
+    },
+    {
+      "id": 3,
+      "name": "backend/app/main.health",
+      "type": "function",
+      "file": "backend/app/main.py",
+      "doc": ""
+    },
+    {
+      "id": 4,
+      "name": "backend/app/models",
+      "type": "module",
+      "file": "backend/app/models.py",
+      "doc": null
+    },
+    {
+      "id": 5,
+      "name": "backend/app/models.Usuario",
+      "type": "class",
+      "file": "backend/app/models.py",
+      "doc": ""
+    },
+    {
+      "id": 6,
+      "name": "backend/app/models.Ingreso",
+      "type": "class",
+      "file": "backend/app/models.py",
+      "doc": ""
+    },
+    {
+      "id": 7,
+      "name": "backend/app/routers.auth_router",
+      "type": "module",
+      "file": "backend/app/routers/auth_router.py",
+      "doc": null
+    },
+    {
+      "id": 8,
+      "name": "backend/app/routers.auth_router.get_db",
+      "type": "function",
+      "file": "backend/app/routers/auth_router.py",
+      "doc": ""
+    },
+    {
+      "id": 9,
+      "name": "backend/app/routers.auth_router.registrar_usuario",
+      "type": "function",
+      "file": "backend/app/routers/auth_router.py",
+      "doc": ""
+    },
+    {
+      "id": 10,
+      "name": "backend/app/routers.auth_router.login",
+      "type": "function",
+      "file": "backend/app/routers/auth_router.py",
+      "doc": ""
+    },
+    {
+      "id": 11,
+      "name": "backend/app/routers.income_router",
+      "type": "module",
+      "file": "backend/app/routers/income_router.py",
+      "doc": null
+    },
+    {
+      "id": 12,
+      "name": "backend/app/routers.income_router.get_db",
+      "type": "function",
+      "file": "backend/app/routers/income_router.py",
+      "doc": ""
+    },
+    {
+      "id": 13,
+      "name": "backend/app/routers.income_router.registrar_ingreso",
+      "type": "function",
+      "file": "backend/app/routers/income_router.py",
+      "doc": ""
+    },
+    {
+      "id": 14,
+      "name": "backend/app/routers.income_router.listar_ingresos",
+      "type": "function",
+      "file": "backend/app/routers/income_router.py",
+      "doc": ""
+    },
+    {
+      "id": 15,
+      "name": "backend/app/routers.income_router.eliminar_ingreso",
+      "type": "function",
+      "file": "backend/app/routers/income_router.py",
+      "doc": ""
+    },
+    {
+      "id": 16,
+      "name": "backend/app/routers.income_router.calcular_boleta",
+      "type": "function",
+      "file": "backend/app/routers/income_router.py",
+      "doc": ""
+    },
+    {
+      "id": 17,
+      "name": "backend/app/routers.income_router.obtener_proyeccion",
+      "type": "function",
+      "file": "backend/app/routers/income_router.py",
+      "doc": ""
+    },
+    {
+      "id": 18,
+      "name": "backend/app/routers.income_router.obtener_recomendaciones",
+      "type": "function",
+      "file": "backend/app/routers/income_router.py",
+      "doc": ""
+    },
+    {
+      "id": 19,
+      "name": "backend/app/schemas",
+      "type": "module",
+      "file": "backend/app/schemas.py",
+      "doc": null
+    },
+    {
+      "id": 20,
+      "name": "backend/app/schemas.UsuarioCreate",
+      "type": "class",
+      "file": "backend/app/schemas.py",
+      "doc": ""
+    },
+    {
+      "id": 21,
+      "name": "backend/app/schemas.UsuarioResponse",
+      "type": "class",
+      "file": "backend/app/schemas.py",
+      "doc": ""
+    },
+    {
+      "id": 22,
+      "name": "backend/app/schemas.IngresoCreate",
+      "type": "class",
+      "file": "backend/app/schemas.py",
+      "doc": ""
+    },
+    {
+      "id": 23,
+      "name": "backend/app/schemas.IngresoResponse",
+      "type": "class",
+      "file": "backend/app/schemas.py",
+      "doc": ""
+    },
+    {
+      "id": 24,
+      "name": "backend/app/schemas.TokenResponse",
+      "type": "class",
+      "file": "backend/app/schemas.py",
+      "doc": ""
+    },
+    {
+      "id": 25,
+      "name": "backend/app/schemas.LoginRequest",
+      "type": "class",
+      "file": "backend/app/schemas.py",
+      "doc": ""
+    },
+    {
+      "id": 26,
+      "name": "backend/app/schemas.BoletaResponse",
+      "type": "class",
+      "file": "backend/app/schemas.py",
+      "doc": ""
+    },
+    {
+      "id": 27,
+      "name": "backend/app/schemas.GlobalComplementarioResponse",
+      "type": "class",
+      "file": "backend/app/schemas.py",
+      "doc": ""
+    },
+    {
+      "id": 28,
+      "name": "backend/app/schemas.ProyeccionResponse",
+      "type": "class",
+      "file": "backend/app/schemas.py",
+      "doc": ""
+    },
+    {
+      "id": 29,
+      "name": "backend/app/schemas.RecomendacionItem",
+      "type": "class",
+      "file": "backend/app/schemas.py",
+      "doc": ""
+    },
+    {
+      "id": 30,
+      "name": "backend/app/services.auth",
+      "type": "module",
+      "file": "backend/app/services/auth.py",
+      "doc": null
+    },
+    {
+      "id": 31,
+      "name": "backend/app/services.auth.hash_password",
+      "type": "function",
+      "file": "backend/app/services/auth.py",
+      "doc": ""
+    },
+    {
+      "id": 32,
+      "name": "backend/app/services.auth.verify_password",
+      "type": "function",
+      "file": "backend/app/services/auth.py",
+      "doc": ""
+    },
+    {
+      "id": 33,
+      "name": "backend/app/services.auth.create_access_token",
+      "type": "function",
+      "file": "backend/app/services/auth.py",
+      "doc": ""
+    },
+    {
+      "id": 34,
+      "name": "backend/app/services.auth.get_usuario_from_token",
+      "type": "function",
+      "file": "backend/app/services/auth.py",
+      "doc": ""
+    },
+    {
+      "id": 35,
+      "name": "backend/app/services.tax_calculator",
+      "type": "module",
+      "file": "backend/app/services/tax_calculator.py",
+      "doc": null
+    },
+    {
+      "id": 36,
+      "name": "backend/app/services.tax_calculator.calcular_retencion_boleta",
+      "type": "function",
+      "file": "backend/app/services/tax_calculator.py",
+      "doc": ""
+    },
+    {
+      "id": 37,
+      "name": "backend/app/services.tax_calculator.calcular_global_complementario",
+      "type": "function",
+      "file": "backend/app/services/tax_calculator.py",
+      "doc": ""
+    },
+    {
+      "id": 38,
+      "name": "backend/app/services.tax_calculator.calcular_proyeccion_anual",
+      "type": "function",
+      "file": "backend/app/services/tax_calculator.py",
+      "doc": ""
+    },
+    {
+      "id": 39,
+      "name": "backend/app/services.tax_calculator.calcular_recomendaciones",
+      "type": "function",
+      "file": "backend/app/services/tax_calculator.py",
+      "doc": ""
+    },
+    {
+      "id": 40,
+      "name": "dashboard/app",
+      "type": "module",
+      "file": "dashboard/app.py",
+      "doc": null
+    },
+    {
+      "id": 41,
+      "name": "dashboard/app.login_page",
+      "type": "function",
+      "file": "dashboard/app.py",
+      "doc": ""
+    },
+    {
+      "id": 42,
+      "name": "dashboard/pages.1_Dashboard",
+      "type": "module",
+      "file": "dashboard/pages/1_Dashboard.py",
+      "doc": null
+    },
+    {
+      "id": 43,
+      "name": "dashboard/pages.2_Registrar_Ingreso",
+      "type": "module",
+      "file": "dashboard/pages/2_Registrar_Ingreso.py",
+      "doc": null
+    },
+    {
+      "id": 44,
+      "name": "dashboard/pages.3_Mis_Ingresos",
+      "type": "module",
+      "file": "dashboard/pages/3_Mis_Ingresos.py",
+      "doc": null
+    },
+    {
+      "id": 45,
+      "name": "dashboard/pages.4_Calcular_Boleta",
+      "type": "module",
+      "file": "dashboard/pages/4_Calcular_Boleta.py",
+      "doc": null
+    },
+    {
+      "id": 46,
+      "name": "dashboard/pages.5_Proyeccion",
+      "type": "module",
+      "file": "dashboard/pages/5_Proyeccion.py",
+      "doc": null
+    },
+    {
+      "id": 47,
+      "name": "dashboard/pages.6_Recomendaciones",
+      "type": "module",
+      "file": "dashboard/pages/6_Recomendaciones.py",
+      "doc": null
+    },
+    {
+      "id": 48,
+      "name": "dashboard/utils",
+      "type": "module",
+      "file": "dashboard/utils.py",
+      "doc": null
+    },
+    {
+      "id": 49,
+      "name": "dashboard/utils.init_session",
+      "type": "function",
+      "file": "dashboard/utils.py",
+      "doc": ""
+    },
+    {
+      "id": 50,
+      "name": "dashboard/utils.api_get",
+      "type": "function",
+      "file": "dashboard/utils.py",
+      "doc": ""
+    },
+    {
+      "id": 51,
+      "name": "dashboard/utils.api_post",
+      "type": "function",
+      "file": "dashboard/utils.py",
+      "doc": ""
+    },
+    {
+      "id": 52,
+      "name": "dashboard/utils.api_delete",
+      "type": "function",
+      "file": "dashboard/utils.py",
+      "doc": ""
+    },
+    {
+      "id": 53,
+      "name": "dashboard/utils.require_auth",
+      "type": "function",
+      "file": "dashboard/utils.py",
+      "doc": ""
+    }
+  ],
+  "edges": [
+    {
+      "source": 1,
+      "target": 2,
+      "label": "contains"
+    },
+    {
+      "source": 2,
+      "target": 3,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 4,
+      "label": "contains"
+    },
+    {
+      "source": 4,
+      "target": 5,
+      "label": "defines"
+    },
+    {
+      "source": 4,
+      "target": 6,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 7,
+      "label": "contains"
+    },
+    {
+      "source": 7,
+      "target": 8,
+      "label": "defines"
+    },
+    {
+      "source": 7,
+      "target": 9,
+      "label": "defines"
+    },
+    {
+      "source": 7,
+      "target": 10,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 11,
+      "label": "contains"
+    },
+    {
+      "source": 11,
+      "target": 12,
+      "label": "defines"
+    },
+    {
+      "source": 11,
+      "target": 13,
+      "label": "defines"
+    },
+    {
+      "source": 11,
+      "target": 14,
+      "label": "defines"
+    },
+    {
+      "source": 11,
+      "target": 15,
+      "label": "defines"
+    },
+    {
+      "source": 11,
+      "target": 16,
+      "label": "defines"
+    },
+    {
+      "source": 11,
+      "target": 17,
+      "label": "defines"
+    },
+    {
+      "source": 11,
+      "target": 18,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 19,
+      "label": "contains"
+    },
+    {
+      "source": 19,
+      "target": 20,
+      "label": "defines"
+    },
+    {
+      "source": 19,
+      "target": 21,
+      "label": "defines"
+    },
+    {
+      "source": 19,
+      "target": 22,
+      "label": "defines"
+    },
+    {
+      "source": 19,
+      "target": 23,
+      "label": "defines"
+    },
+    {
+      "source": 19,
+      "target": 24,
+      "label": "defines"
+    },
+    {
+      "source": 19,
+      "target": 25,
+      "label": "defines"
+    },
+    {
+      "source": 19,
+      "target": 26,
+      "label": "defines"
+    },
+    {
+      "source": 19,
+      "target": 27,
+      "label": "defines"
+    },
+    {
+      "source": 19,
+      "target": 28,
+      "label": "defines"
+    },
+    {
+      "source": 19,
+      "target": 29,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 30,
+      "label": "contains"
+    },
+    {
+      "source": 30,
+      "target": 31,
+      "label": "defines"
+    },
+    {
+      "source": 30,
+      "target": 32,
+      "label": "defines"
+    },
+    {
+      "source": 30,
+      "target": 33,
+      "label": "defines"
+    },
+    {
+      "source": 30,
+      "target": 34,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 35,
+      "label": "contains"
+    },
+    {
+      "source": 35,
+      "target": 36,
+      "label": "defines"
+    },
+    {
+      "source": 35,
+      "target": 37,
+      "label": "defines"
+    },
+    {
+      "source": 35,
+      "target": 38,
+      "label": "defines"
+    },
+    {
+      "source": 35,
+      "target": 39,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 40,
+      "label": "contains"
+    },
+    {
+      "source": 40,
+      "target": 41,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 42,
+      "label": "contains"
+    },
+    {
+      "source": 1,
+      "target": 43,
+      "label": "contains"
+    },
+    {
+      "source": 1,
+      "target": 44,
+      "label": "contains"
+    },
+    {
+      "source": 1,
+      "target": 45,
+      "label": "contains"
+    },
+    {
+      "source": 1,
+      "target": 46,
+      "label": "contains"
+    },
+    {
+      "source": 1,
+      "target": 47,
+      "label": "contains"
+    },
+    {
+      "source": 1,
+      "target": 48,
+      "label": "contains"
+    },
+    {
+      "source": 48,
+      "target": 49,
+      "label": "defines"
+    },
+    {
+      "source": 48,
+      "target": 50,
+      "label": "defines"
+    },
+    {
+      "source": 48,
+      "target": 51,
+      "label": "defines"
+    },
+    {
+      "source": 48,
+      "target": 52,
+      "label": "defines"
+    },
+    {
+      "source": 48,
+      "target": 53,
+      "label": "defines"
+    }
+  ]
+}

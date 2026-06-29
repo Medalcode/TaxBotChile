@@ -1,6 +1,6 @@
-import streamlit as st
 import pandas as pd
 import plotly.express as px
+import streamlit as st
 from utils import api_get, require_auth
 
 require_auth()

@@ -1,12 +1,13 @@
-from datetime import datetime, timedelta, timezone
 import os
-from dotenv import load_dotenv
-from jose import jwt, JWTError
+from datetime import UTC, datetime, timedelta
+
 import bcrypt
+from app.models import Usuario, engine
+from dotenv import load_dotenv
 from fastapi import Depends, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from sqlalchemy.orm import Session, sessionmaker
-from app.models import engine, Usuario
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from jose import JWTError, jwt
+from sqlalchemy.orm import sessionmaker
 
 load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", ".env"))
 
@@ -27,7 +28,7 @@ def verify_password(plain: str, hashed: str) -> bool:
 
 def create_access_token(data: dict) -> str:
     to_encode = data.copy()
-    to_encode.update({"exp": datetime.now(timezone.utc) + timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)})
+    to_encode.update({"exp": datetime.now(UTC) + timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 
@@ -39,7 +40,7 @@ def get_usuario_from_token(credentials: HTTPAuthorizationCredentials = Depends(s
         if usuario_id is None:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token inválido")
     except JWTError:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token inválido")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token inválido") from None
     db = SessionLocal()
     try:
         usuario = db.query(Usuario).filter(Usuario.id == usuario_id).first()

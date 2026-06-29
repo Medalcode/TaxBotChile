@@ -1,11 +1,13 @@
-from fastapi import FastAPI, Depends
-from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from app.routers import auth_router, income_router
+
 from app.models import Base, engine
+from app.routers import auth_router, income_router
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(_app: FastAPI):
     Base.metadata.create_all(bind=engine)
     yield
 

@@ -1,12 +1,13 @@
-import sys
 import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "backend"))
 
 from app.services.tax_calculator import (
-    calcular_retencion_boleta,
     calcular_global_complementario,
     calcular_proyeccion_anual,
     calcular_recomendaciones,
+    calcular_retencion_boleta,
 )
 
 
@@ -47,5 +48,4 @@ def test_calcular_recomendaciones():
 
 def test_calcular_recomendaciones_exentas():
     recs = calcular_recomendaciones([100000] * 3)
-    tipos = [r["tipo"] for r in recs]
-    assert "alerta" not in tipos or True
+    assert len(recs) > 0

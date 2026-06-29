@@ -1,9 +1,8 @@
+from app.models import Usuario, engine
+from app.schemas import LoginRequest, TokenResponse, UsuarioCreate, UsuarioResponse
+from app.services.auth import create_access_token, hash_password, verify_password
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
-from sqlalchemy.orm import sessionmaker
-from app.models import engine, Usuario
-from app.schemas import UsuarioCreate, UsuarioResponse, TokenResponse, LoginRequest
-from app.services.auth import hash_password, verify_password, create_access_token
+from sqlalchemy.orm import Session, sessionmaker
 
 SessionLocal = sessionmaker(bind=engine)
 

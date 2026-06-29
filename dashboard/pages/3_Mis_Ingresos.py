@@ -1,6 +1,6 @@
-import streamlit as st
 import pandas as pd
-from utils import api_get, api_delete, require_auth
+import streamlit as st
+from utils import api_delete, api_get, require_auth
 
 require_auth()
 st.title("📋 Mis Ingresos")
@@ -24,7 +24,7 @@ if r.status_code == 200:
                     st.write(f"**Cliente:** {row['cliente']}")
                 if row.get("descripcion"):
                     st.write(f"**Concepto:** {row['descripcion']}")
-                if st.button(f"🗑️ Eliminar", key=f"del_{row['id']}"):
+                if st.button("🗑️ Eliminar", key=f"del_{row['id']}"):
                     api_delete(f"/api/ingresos/{row['id']}")
                     st.rerun()
     else:

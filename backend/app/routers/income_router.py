@@ -1,21 +1,21 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session, sessionmaker
 from datetime import datetime
-from app.models import engine, Usuario, Ingreso
+
+from app.models import Ingreso, Usuario, engine
 from app.schemas import (
+    BoletaResponse,
     IngresoCreate,
     IngresoResponse,
-    BoletaResponse,
     ProyeccionResponse,
-    GlobalComplementarioResponse,
     RecomendacionItem,
 )
 from app.services.auth import get_usuario_from_token
 from app.services.tax_calculator import (
-    calcular_retencion_boleta,
     calcular_proyeccion_anual,
     calcular_recomendaciones,
+    calcular_retencion_boleta,
 )
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session, sessionmaker
 
 router = APIRouter(prefix="/api", tags=["ingresos"])
 
@@ -39,7 +39,7 @@ def registrar_ingreso(
     try:
         fecha = datetime.strptime(payload.fecha_emision, "%Y-%m-%d")
     except ValueError:
-        raise HTTPException(status_code=400, detail="Formato de fecha inválido. Use YYYY-MM-DD")
+        raise HTTPException(status_code=400, detail="Formato de fecha inválido. Use YYYY-MM-DD") from None
     ingreso = Ingreso(
         usuario_id=usuario.id,
         monto_bruto=payload.monto_bruto,

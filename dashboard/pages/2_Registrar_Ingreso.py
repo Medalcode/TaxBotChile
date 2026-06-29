@@ -1,5 +1,6 @@
-import streamlit as st
 from datetime import datetime
+
+import streamlit as st
 from utils import api_post, require_auth
 
 require_auth()
