@@ -1,25 +1,22 @@
 import os
-
-from dotenv import load_dotenv
-
-load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", ".env"))
+from typing import Any
 
 VALOR_UTM = float(os.getenv("VALOR_UTM", "66205"))
 RETENCION_BOLETA = 0.1375
 
-TRAMOS_GLOBAL_COMPLEMENTARIO = [
-    (0, 13.5, 0, 0),
-    (13.5, 30, 0.04, 0),
-    (30, 50, 0.08, 0.54),
-    (50, 70, 0.135, 2.14),
-    (70, 90, 0.23, 5.34),
-    (90, 120, 0.30, 11.14),
-    (120, 150, 0.35, 17.14),
-    (150, float("inf"), 0.40, 24.64),
+TRAMOS_GLOBAL_COMPLEMENTARIO: list[tuple[float, float, float, float]] = [
+    (0.0, 13.5, 0.0, 0.0),
+    (13.5, 30.0, 0.04, 0.0),
+    (30.0, 50.0, 0.08, 0.54),
+    (50.0, 70.0, 0.135, 2.14),
+    (70.0, 90.0, 0.23, 5.34),
+    (90.0, 120.0, 0.30, 11.14),
+    (120.0, 150.0, 0.35, 17.14),
+    (150.0, float("inf"), 0.40, 24.64),
 ]
 
 
-def calcular_retencion_boleta(monto_bruto: float) -> dict:
+def calcular_retencion_boleta(monto_bruto: float) -> dict[str, Any]:
     retencion = round(monto_bruto * RETENCION_BOLETA, 0)
     liquido = monto_bruto - retencion
     return {
@@ -30,22 +27,22 @@ def calcular_retencion_boleta(monto_bruto: float) -> dict:
     }
 
 
-def calcular_global_complementario(ingreso_bruto_anual: float) -> dict:
+def calcular_global_complementario(ingreso_bruto_anual: float) -> dict[str, Any]:
     utm = ingreso_bruto_anual / VALOR_UTM
 
-    tasa = 0
-    impuesto = 0
-    descuento = 0
+    tasa: float = 0.0
+    impuesto: float = 0.0
+    descuento: float = 0.0
     for ini, fin, t, d in TRAMOS_GLOBAL_COMPLEMENTARIO:
         if ini <= utm < fin:
             tasa = t
             descuento = d * VALOR_UTM
-            impuesto = max(0, ingreso_bruto_anual * tasa - descuento)
+            impuesto = max(0.0, ingreso_bruto_anual * tasa - descuento)
             break
 
     total_retenido_anual = ingreso_bruto_anual * RETENCION_BOLETA
-    saldo_a_pagar = max(0, impuesto - total_retenido_anual)
-    saldo_a_favor = max(0, total_retenido_anual - impuesto)
+    saldo_a_pagar = max(0.0, impuesto - total_retenido_anual)
+    saldo_a_favor = max(0.0, total_retenido_anual - impuesto)
 
     return {
         "ingreso_bruto_anual": round(ingreso_bruto_anual, 0),
@@ -58,7 +55,7 @@ def calcular_global_complementario(ingreso_bruto_anual: float) -> dict:
     }
 
 
-def calcular_proyeccion_anual(ingresos_mensuales: list[float]) -> dict:
+def calcular_proyeccion_anual(ingresos_mensuales: list[float]) -> dict[str, Any]:
     total_bruto = sum(ingresos_mensuales)
     meses_con_datos = len([i for i in ingresos_mensuales if i > 0])
     promedio_mensual = total_bruto / max(meses_con_datos, 1)
@@ -70,7 +67,7 @@ def calcular_proyeccion_anual(ingresos_mensuales: list[float]) -> dict:
     ahorro_sugerido_mensual = (
         gc["impuesto_calculado"] / 12
         if proyeccion_anual > 0
-        else 0
+        else 0.0
     )
 
     return {
@@ -84,10 +81,10 @@ def calcular_proyeccion_anual(ingresos_mensuales: list[float]) -> dict:
     }
 
 
-def calcular_recomendaciones(ingresos_mensuales: list[float]) -> list[dict]:
+def calcular_recomendaciones(ingresos_mensuales: list[float]) -> list[dict[str, str]]:
     proy = calcular_proyeccion_anual(ingresos_mensuales)
     gc = proy["global_complementario"]
-    recs = []
+    recs: list[dict[str, str]] = []
 
     if gc["saldo_a_pagar"] > 0:
         recs.append({
@@ -109,7 +106,10 @@ def calcular_recomendaciones(ingresos_mensuales: list[float]) -> list[dict]:
     if proy["promedio_mensual"] < 500000:
         recs.append({
             "tipo": "info",
-            "mensaje": "Estás en el tramo exento o bajo. Considera cotizar voluntariamente para mejorar tu pensión.",
+            "mensaje": (
+                "Estás en el tramo exento o bajo. "
+                "Considera cotizar voluntariamente para mejorar tu pensión."
+            ),
         })
 
     if gc["tasa_efectiva"] > 20:

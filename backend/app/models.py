@@ -1,17 +1,8 @@
-import os
 from datetime import UTC, datetime
 
-from dotenv import load_dotenv
-from sqlalchemy import Column, DateTime, Float, ForeignKey, Integer, String, create_engine
-from sqlalchemy.orm import declarative_base, relationship
-
-load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".env"))
-
-DB_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "data")
-os.makedirs(DB_DIR, exist_ok=True)
-DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{os.path.join(DB_DIR, 'taxbot.db')}")
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
-Base = declarative_base()
+from app.database import Base, engine  # noqa: F401
+from sqlalchemy import Column, DateTime, Float, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
 
 
 class Usuario(Base):
