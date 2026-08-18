@@ -4,8 +4,9 @@ from utils import api_post, init_session
 st.set_page_config(page_title="TaxBot Chile", page_icon="🧾", layout="wide")
 init_session()
 
-def login_page():
+def login_page() -> None:
     st.title("Bienvenido a TaxBot Chile")
+
     st.caption("Asistente Tributario para Freelancers")
 
     tab1, tab2 = st.tabs(["Iniciar Sesión", "Registrarse"])
