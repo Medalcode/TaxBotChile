@@ -9,27 +9,31 @@ Asistente tributario inteligente para freelancers chilenos. Calcula retención d
 - **Dashboard interactivo** — 6 vistas con gráficos Plotly (ingresos mensuales, comparativas)
 - **Recomendaciones personalizadas** — Sugerencias de ahorro basadas en ingresos y proyección GC
 - **Autenticación** — Registro e inicio de sesión con JWT + bcrypt
-- **CRUD de ingresos** — Registrar, listar y eliminar ingresos
+- **CRUD de ingresos** — Registrar, listar y eliminar ingresos con aislamiento por usuario
 
 ## Stack
 
 | Capa | Tecnología |
 |------|-----------|
-| Backend | FastAPI + SQLAlchemy + SQLite |
+| Backend | FastAPI + SQLAlchemy 2.0 + SQLite |
 | Dashboard | Streamlit + Plotly + Pandas |
 | Auth | JWT (python-jose) + bcrypt nativo |
-| Tests | pytest + httpx (TestClient) |
+| CI/CD & QA | GitHub Actions + pytest (99% coverage) + ruff + mypy |
 | Deploy | Docker + docker-compose |
 
 ## Estructura
 
 ```
 TaxBotChile/
+├── .github/
+│   └── workflows/
+│       └── ci.yml               # GitHub Actions CI/CD Pipeline
 ├── backend/
 │   ├── app/
 │   │   ├── main.py              # FastAPI entry point + CORS
+│   │   ├── database.py          # SQLAlchemy 2.0 engine, Base & SessionLocal
 │   │   ├── models.py            # SQLAlchemy ORM (Usuario, Ingreso)
-│   │   ├── schemas.py           # Pydantic models
+│   │   ├── schemas.py           # Pydantic models (DTOs)
 │   │   ├── routers/
 │   │   │   ├── auth_router.py   # /auth/registro, /auth/login
 │   │   │   └── income_router.py # /api/ingresos, /api/calcular, etc.
@@ -51,12 +55,14 @@ TaxBotChile/
 │   ├── Dockerfile
 │   └── requirements.txt
 ├── tests/
-│   ├── test_api.py              # 7 tests de integración (API)
-│   └── test_tax_calculator.py   # 6 tests unitarios (core tributario)
+│   ├── test_api.py              # Pruebas de integración API, auth y multitenancy
+│   ├── test_tax_calculator.py   # Pruebas unitarias de cálculo fiscal y tramos UTM
+│   └── test_smoke_and_utils.py  # Smoke tests y unit tests de utils de Dashboard
 ├── docker-compose.yml           # Orquestación backend + dashboard
 ├── run.sh                       # Script lanzamiento local
 ├── .env.example                 # Variables de entorno (SECRET_KEY, DB)
 ├── pyproject.toml               # ruff + mypy config
+├── CHANGELOG.md                 # Historial de cambios
 ├── graphify-out/                # Knowledge graph (53 nodos, 52 aristas)
 ├── .agents/                     # skills.sh skills (tdd)
 ├── .gitignore
@@ -109,22 +115,20 @@ docker compose up --build
 | GET | `/api/recomendaciones` | Recomendaciones de ahorro |
 | GET | `/health` | Health check |
 
-## Tests
+## QA & Testing Suite
 
 ```bash
-cd backend
-pytest ../tests/ -v
+uv run pytest --cov=backend/app --cov-report=term-missing tests/ -v
 ```
 
-13 tests (7 integración API + 6 unitarios). Todos pasan sin warnings.
+27 tests (Integración API, Casos de Borde, Escenarios Negativos, Aislamiento Multiusuario y Smoke Tests) con **99% de cobertura en backend**.
 
-## Knowledge Graph
+## CI/CD Pipeline
 
-`graphify-out/graph.json` contiene 53 nodos y 52 aristas del AST del proyecto, permitiendo a agentes AI comprender la arquitectura sin escanear archivos.
-
-## Skills
-
-- **tdd** (skills.sh) — patrones de testing para mantener y expandir la cobertura
+El repositorio cuenta con integración continua vía GitHub Actions ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)):
+1. Linter: `uv run ruff check .`
+2. Type Checker: `uv run mypy backend/app dashboard`
+3. Test & Coverage: `uv run pytest --cov=backend/app tests/ -v`
 
 ## Variables de Entorno
 
@@ -133,6 +137,7 @@ pytest ../tests/ -v
 | `SECRET_KEY` | `taxbot-secret-key-change-in-production` | Clave para firmar JWT |
 | `DATABASE_URL` | `sqlite:///data/taxbot.db` | URL de conexión a BD |
 | `VALOR_UTM` | `66205` | Valor de la UTM para cálculos |
+| `API_URL` | `http://localhost:8000` | URL del Backend consumida por el Dashboard |
 
 ## Autor
 
